@@ -15,14 +15,14 @@ from src.logger import configure_logger
 configure_logger()
 logger = logging.getLogger(__name__)
 
-# Ensure NLTK resources are downloaded
+
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
 
 # File paths
 DATA_PATH = r"C:\Users\vishw\OneDrive\Desktop\project2\Chrome-Plugin\notebooks\data.csv"
-OUTPUT_PATH = r"C:\Users\Public\cleaned_data_final.csv"  # Changed for better write permissions
+OUTPUT_PATH = r"C:\Users\Public\cleaned_data_final.csv"  
 
 class DataPreprocessing:
     """Handles text preprocessing for NLP datasets."""
@@ -123,7 +123,7 @@ class DataPreprocessing:
 
 # Run preprocessing
 if __name__ == "__main__":
-    TEXT_COLUMN = "review"  # Change this to match your dataset column name
+    TEXT_COLUMN = "review" 
 
     if os.path.exists(DATA_PATH):
         preprocessor = DataPreprocessing(DATA_PATH, TEXT_COLUMN)
