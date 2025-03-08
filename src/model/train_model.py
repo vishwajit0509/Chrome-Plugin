@@ -19,7 +19,7 @@ FEATURES_PATH = r"C:\Users\vishw\OneDrive\Desktop\project2\Chrome-Plugin\src\fea
 LABELS_PATH = r"C:\Users\vishw\OneDrive\Desktop\project2\Chrome-Plugin\src\data\cleaned_data_final.csv"
 MODEL_DIR = r"C:\Users\vishw\OneDrive\Desktop\project2\Chrome-Plugin\models"
 
-# Ensure model directory exists
+
 os.makedirs(MODEL_DIR, exist_ok=True)
 
 class ModelTraining:
@@ -36,7 +36,7 @@ class ModelTraining:
         self.labels_path = labels_path
         self.target_column = target_column
 
-        # Load data
+        
         self.X, self.y = self.load_data()
 
         # Models to train
@@ -64,19 +64,18 @@ class ModelTraining:
         """Evaluate model performance with multiple metrics."""
         y_pred = model.predict(X_test)
         
-        # Calculate performance metrics
         accuracy = accuracy_score(y_test, y_pred)
         precision = precision_score(y_test, y_pred, average='weighted', zero_division=1)
         recall = recall_score(y_test, y_pred, average='weighted', zero_division=1)
         f1 = f1_score(y_test, y_pred, average='weighted', zero_division=1)
 
-        # Compute ROC-AUC only for models that support probability estimates
+        
         roc_auc = None
         if hasattr(model, "predict_proba"):
             y_prob = model.predict_proba(X_test)[:, 1]
             roc_auc = roc_auc_score(y_test, y_prob)
 
-        # Generate classification report
+        
         report = classification_report(y_test, y_pred)
 
         return accuracy, precision, recall, f1, roc_auc, report
@@ -92,14 +91,14 @@ class ModelTraining:
             best_model = None
             best_accuracy = 0
 
-            # Results storage
+            
             results = []
 
             for model_name, model in self.models.items():
                 logging.info(f"Training {model_name}...")
                 model.fit(X_train, y_train)
 
-                # Evaluate the model
+               
                 accuracy, precision, recall, f1, roc_auc, report = self.evaluate_model(model, X_test, y_test)
 
                 # Log results
@@ -109,17 +108,17 @@ class ModelTraining:
                     logging.info(f"ROC-AUC Score: {roc_auc:.4f}")
                 logging.info(f"Classification Report for {model_name}:\n{report}")
 
-                # Save model
+                
                 model_path = os.path.join(MODEL_DIR, f"{model_name.replace(' ', '_')}.pkl")
                 joblib.dump(model, model_path)
                 logging.info(f"Model saved at {model_path}")
 
-                # Track the best model
+                
                 if accuracy > best_accuracy:
                     best_accuracy = accuracy
                     best_model = (model_name, model_path)
 
-                # Store results
+                
                 results.append({
                     "Model": model_name,
                     "Accuracy": accuracy,
@@ -129,7 +128,7 @@ class ModelTraining:
                     "ROC-AUC": roc_auc
                 })
 
-            # Print summary
+            
             logging.info("\n🔹 Final Model Comparison:")
             results_df = pd.DataFrame(results)
             logging.info(f"\n{results_df}")
@@ -142,7 +141,7 @@ class ModelTraining:
 
 
 if __name__ == "__main__":
-    TARGET_COLUMN = "sentiment"  # Replace with actual target column
+    TARGET_COLUMN = "sentiment"  
 
     if os.path.exists(FEATURES_PATH) and os.path.exists(LABELS_PATH):
         trainer = ModelTraining(FEATURES_PATH, LABELS_PATH, TARGET_COLUMN)
