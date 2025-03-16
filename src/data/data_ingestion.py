@@ -6,6 +6,8 @@ import os
 from sklearn.model_selection import train_test_split
 import yaml
 import logging
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from src.logger import logging
 from src.connections import s3_connection
 
