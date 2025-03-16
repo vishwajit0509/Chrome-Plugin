@@ -79,5 +79,5 @@ pydantic_core==2.20.1
 pydot==3.0.1
 
 prometheus_client
-
--e .
+imbalanced-learn
+#-e .
