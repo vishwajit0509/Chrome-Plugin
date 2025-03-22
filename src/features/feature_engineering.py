@@ -3,8 +3,6 @@ import pandas as pd
 import os
 from sklearn.feature_extraction.text import CountVectorizer
 import yaml
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from src.logger import logging
 import pickle
 
@@ -80,7 +78,8 @@ def save_data(df: pd.DataFrame, file_path: str) -> None:
 
 def main():
     try:
-        max_features = 20
+        params = load_params('params.yaml')
+        max_features = params['feature_engineering']['max_features']
 
         train_data = load_data('./data/interim/train_processed.csv')
         test_data = load_data('./data/interim/test_processed.csv')
