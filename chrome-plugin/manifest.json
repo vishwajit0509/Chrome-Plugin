@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Sentiment Analyzer (Pos/Negative)",
+  "version": "1.0",
+  "description": "Fetch the YouTube video URL and analyze comment sentiment (positive or negative) using our Flask API.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "http://localhost:5000/*"
+  ]
+}
