@@ -89,4 +89,5 @@ target/
 .mypy_cache/
 
 logs/
+
 models/
