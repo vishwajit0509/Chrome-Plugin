@@ -113,7 +113,7 @@ PREDICTION_COUNT = Counter(
 # ------------------------------------------------------------------------------------------
 # Model and vectorizer setup
 model_name = "my_model"
-def get_latest_model_version(model_name):
+def get_latest_model_version(model_name):  ### it will only give the version 
     client = mlflow.MlflowClient()
     latest_version = client.get_latest_versions(model_name, stages=["staging"])
     if not latest_version:
@@ -123,7 +123,7 @@ def get_latest_model_version(model_name):
 model_version = get_latest_model_version(model_name)
 model_uri = f'models:/{model_name}/{model_version}'
 print(f"Fetching model from: {model_uri}")
-model = mlflow.pyfunc.load_model(model_uri)
+model = mlflow.pyfunc.load_model(model_uri)   ## here we get the model from the version
 vectorizer = pickle.load(open('models/vectorizer.pkl', 'rb'))
 
 # Routes
