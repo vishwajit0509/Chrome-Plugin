@@ -67,11 +67,11 @@ def normalize_text(text):
 
     return text
 
-# Below code block is for local use
-# -------------------------------------------------------------------------------------
-mlflow.set_tracking_uri('https://dagshub.com/ay747283/Chrome-Plugin.mlflow')
-dagshub.init(repo_owner='ay747283', repo_name='Chrome-Plugin', mlflow=True)
-# -------------------------------------------------------------------------------------
+# # Below code block is for local use
+# # -------------------------------------------------------------------------------------
+# mlflow.set_tracking_uri('https://dagshub.com/ay747283/Chrome-Plugin.mlflow')
+# dagshub.init(repo_owner='ay747283', repo_name='Chrome-Plugin', mlflow=True)
+# # -------------------------------------------------------------------------------------
 
 dagshub_token = os.getenv('CAPSTONE_TEST')
 if not dagshub_token:
