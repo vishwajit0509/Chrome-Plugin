@@ -2,32 +2,26 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>YouTube Sentiment Analyzer (Pos/Negative)</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      width: 300px;
-      padding: 10px;
-    }
-    #result {
-      margin-top: 10px;
-      word-wrap: break-word;
-      white-space: pre-wrap;
-    }
-    button {
-      margin-top: 10px;
-      padding: 8px 12px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-  </style>
+  <title>YouTube Sentiment Analyzer</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2>YouTube Sentiment Analyzer</h2>
-  <p><strong>Video URL:</strong> <span id="videoUrl">Loading...</span></p>
-  <button id="analyzeBtn" disabled>Analyze Comments</button>
-  <div id="result"></div>
-
+  <div class="container">
+    <h2>YouTube Sentiment Analyzer</h2>
+    <div class="video-info">
+      <p><strong>Video URL:</strong> <span id="videoUrl">Loading...</span></p>
+    </div>
+    <button id="analyzeBtn" disabled>Analyze Comments</button>
+    <div id="result">
+      <!-- Results will be displayed here -->
+    </div>
+    <div class="charts">
+      <canvas id="sentimentChart" width="300" height="300"></canvas>
+      <canvas id="forecastChart" width="300" height="300"></canvas>
+    </div>
+  </div>
+  <!-- Load Chart.js from local vendor folder -->
+  <script src="vendor/chart.umd.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

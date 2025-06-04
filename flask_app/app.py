@@ -67,28 +67,24 @@ def normalize_text(text):
 
     return text
 
-# Below code block is for local use
-# -------------------------------------------------------------------------------------
-mlflow.set_tracking_uri('https://dagshub.com/ay747283/Chrome-Plugin.mlflow')
-dagshub.init(repo_owner='ay747283', repo_name='Chrome-Plugin', mlflow=True)
-# -------------------------------------------------------------------------------------
+# # Below code block is for local use
+# # -------------------------------------------------------------------------------------
+# mlflow.set_tracking_uri('https://dagshub.com/ay747283/Chrome-Plugin.mlflow')
+# dagshub.init(repo_owner='ay747283', repo_name='Chrome-Plugin', mlflow=True)
+# # -------------------------------------------------------------------------------------
 
-# Below code block is for production use
-# -------------------------------------------------------------------------------------
-# Set up DagsHub credentials for MLflow tracking
-# dagshub_token = os.getenv("CAPSTONE_TEST")
-# if not dagshub_token:
-#     raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
+dagshub_token = os.getenv('CAPSTONE_TEST')
+if not dagshub_token:
+    raise ValueError("DagsHub token not found. Please set the CAPSTONE_TEST environment variable.")
 
-# os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
-# os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+os.environ['MLFLOW_TRACKING_USERNAME'] = dagshub_token
+os.environ['MLFLOW_TRACKING_PASSWORD'] = dagshub_token
 
-# dagshub_url = "https://dagshub.com"
-# repo_owner = "vikashdas770"
-# repo_name = "YT-Capstone-Project"
-# # Set up MLflow tracking URI
-# mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
-# -------------------------------------------------------------------------------------
+dagshub_url = 'https://dagshub.com'
+repo_owner = 'ay747283'
+repo_name = 'Chrome-Plugin'
+
+mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
 
 
 # Initialize Flask app
@@ -113,7 +109,7 @@ PREDICTION_COUNT = Counter(
 # ------------------------------------------------------------------------------------------
 # Model and vectorizer setup
 model_name = "my_model"
-def get_latest_model_version(model_name):
+def get_latest_model_version(model_name):  ### it will only give the version 
     client = mlflow.MlflowClient()
     latest_version = client.get_latest_versions(model_name, stages=["staging"])
     if not latest_version:
@@ -123,7 +119,7 @@ def get_latest_model_version(model_name):
 model_version = get_latest_model_version(model_name)
 model_uri = f'models:/{model_name}/{model_version}'
 print(f"Fetching model from: {model_uri}")
-model = mlflow.pyfunc.load_model(model_uri)
+model = mlflow.pyfunc.load_model(model_uri)   ## here we get the model from the version
 vectorizer = pickle.load(open('models/vectorizer.pkl', 'rb'))
 
 # Routes
